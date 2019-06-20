@@ -1,0 +1,37 @@
+{
+  "name": "blackchaose.ascetic-chart",
+  "version": "1.0.0",
+  "description": "simple chart",
+  "main": "ascetic-chart.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BlackChaose/ascetic-chart.git"
+  },
+  "keywords": [
+    "chart",
+    "graphic",
+    "simple"
+  ],
+  "author": "nikita.s.kalitin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BlackChaose/ascetic-chart/issues"
+  },
+  "homepage": "https://github.com/BlackChaose/ascetic-chart#readme",
+  "devDependencies": {
+    "gulp": "latest",
+    "gulp-saas": "latest",
+    "gulp-useref": "latest",
+    "gulp-uglify-es": "latest",
+    "gulp-util": "latest",
+    "gulp-if": "latest",
+    "gulp-cssnano": "latest",
+    "gulp-imagemin": "latest",
+    "del": "latest",
+    "gulp-concat": "latest",
+    "gulp-cache": "latest"
+  }
+}
