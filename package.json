@@ -4,7 +4,11 @@
   "description": "simple chart",
   "main": "ascetic-chart.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "http-server -c-1 -p 8081",
+    "lint": "eslint src/js",
+    "buildjs": "gulp buildJS",
+    "buildminjs": "gulp buildminjs"
   },
   "repository": {
     "type": "git",
@@ -22,16 +26,18 @@
   },
   "homepage": "https://github.com/BlackChaose/ascetic-chart#readme",
   "devDependencies": {
-    "gulp": "latest",
-    "gulp-saas": "latest",
-    "gulp-useref": "latest",
-    "gulp-uglify-es": "latest",
-    "gulp-util": "latest",
-    "gulp-if": "latest",
-    "gulp-cssnano": "latest",
-    "gulp-imagemin": "latest",
+    "@babel/register": "^7.4.4",
     "del": "latest",
+    "eslint": "latest",
+    "gulp": "latest",
+    "gulp-cache": "latest",
     "gulp-concat": "latest",
-    "gulp-cache": "latest"
+    "gulp-cssnano": "latest",
+    "gulp-if": "latest",
+    "gulp-imagemin": "latest",
+    "gulp-sass": "latest",
+    "gulp-uglify-es": "latest",
+    "gulp-useref": "latest",
+    "gulp-util": "latest"
   }
 }

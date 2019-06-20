@@ -25,6 +25,7 @@
         "grid": "show",
         "axis-color": "gray",
         "grid-color": "light-green",
+        "background-color": "black",
         "font-size": "normal",
         "typeChart": "rectangles",
         "margin": "1",
@@ -37,6 +38,9 @@
           {"index": 1, "height": 17, "color": "cyan"}
         ]
       }
+      document.addEventListener("DOMContentLoaded", function() {
+        asceticChart.Run(AsceticChartData);
+      });   
     </script>
   </body>
 </html>

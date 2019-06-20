@@ -9,11 +9,10 @@ var cache = require('gulp-cache');
 var del = require('del');
 var concat = require('gulp-concat');
 var onlyProductionJS = [
-   // 'js/jquery-3.3.1.min.js',
-   'public/js/ascetic-charts.min.js',
+   'src/ascetic-chart.js',
 ];
 var onlyProductionCSS = [
-  'public/css/ascetic-chart.min.css',
+  'src/ascetic-chart.css',
 ];
 gulp.task('sass', function() {
   return gulp.src('src/scss/main.scss').pipe(sass()) //using gulp-sass
@@ -49,13 +48,19 @@ gulp.task('cssmin', function() {
       }).
       pipe(gulp.dest('public/css'));
 });
-gulp.task('assemblyJS', function() {
-  return gulp.src(onlyProductionJS).
-      pipe(concat('main.assm.min.js')).
-      pipe(gulp.dest('prod_assembly/js'));
+
+gulp.task('buildminjs',function(){
+ return gulp.src(onlyProductionJS).
+      pipe(gulpIf('*.js', uglify())).
+      on('error', function(err) {
+        gutil.log(gutil.colors.red('[Error]'), err.toString());
+      }).pipe(concat('ascetic-chart.min.js')).
+      pipe(gulp.dest('public/js'));
 });
-gulp.task('assemblyCSS', function() {
-  return gulp.src(onlyProductionCSS).
-      pipe(concat('main.assm.min.css')).
-      pipe(gulp.dest('prod_assembly/css'));
+
+gulp.task('buildJS', function() {
+  return gulp.src(o).
+      pipe(concat('ascetic-chart.min.js')).
+      pipe(gulp.dest('public/js'));
 });
+
