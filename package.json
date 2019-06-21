@@ -8,7 +8,8 @@
     "start": "http-server -c-1 -p 8081",
     "lint": "eslint src/js",
     "buildjs": "gulp buildJS",
-    "buildminjs": "gulp buildminjs"
+    "buildminjs": "gulp buildminjs",
+    "watchbmjs": "gulp watchbmjs"
   },
   "repository": {
     "type": "git",
@@ -27,9 +28,11 @@
   "homepage": "https://github.com/BlackChaose/ascetic-chart#readme",
   "devDependencies": {
     "@babel/register": "^7.4.4",
+    "babel-core": "^6.26.3",
     "del": "latest",
     "eslint": "latest",
     "gulp": "latest",
+    "gulp-babel": "^8.0.0",
     "gulp-cache": "latest",
     "gulp-concat": "latest",
     "gulp-cssnano": "latest",
@@ -39,5 +42,8 @@
     "gulp-uglify-es": "latest",
     "gulp-useref": "latest",
     "gulp-util": "latest"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11"
   }
 }

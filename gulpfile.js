@@ -8,6 +8,7 @@ var imagemin = require('gulp-imagemin');
 var cache = require('gulp-cache');
 var del = require('del');
 var concat = require('gulp-concat');
+var babel = require('gulp-babel');
 var onlyProductionJS = [
    'src/ascetic-chart.js',
 ];
@@ -51,11 +52,18 @@ gulp.task('cssmin', function() {
 
 gulp.task('buildminjs',function(){
  return gulp.src(onlyProductionJS).
+      pipe(sourcemaps.init()).
+      pipe(babel({presets:['@babel/preset-env']})).
+      pipe(sourcemaps.write('.')).
       pipe(gulpIf('*.js', uglify())).
       on('error', function(err) {
         gutil.log(gutil.colors.red('[Error]'), err.toString());
       }).pipe(concat('ascetic-chart.min.js')).
       pipe(gulp.dest('public/js'));
+});
+
+gulp.task('watchbmjs', function() {
+  gulp.watch('src/ascetic-chart.js', gulp.series('buildminjs'));
 });
 
 gulp.task('buildJS', function() {
