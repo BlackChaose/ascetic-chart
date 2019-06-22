@@ -50,20 +50,24 @@ gulp.task('cssmin', function() {
       pipe(gulp.dest('public/css'));
 });
 
-gulp.task('buildminjs',function(){
- return gulp.src(onlyProductionJS).
-      pipe(sourcemaps.init()).
-      pipe(babel({presets:['@babel/preset-env']})).
-      pipe(sourcemaps.write('.')).
-      pipe(gulpIf('*.js', uglify())).
-      on('error', function(err) {
-        gutil.log(gutil.colors.red('[Error]'), err.toString());
-      }).pipe(concat('ascetic-chart.min.js')).
-      pipe(gulp.dest('public/js'));
+gulp.task('buildjs',function(){
+ return gulp.src(onlyProductionJS)
+ .pipe(babel())
+ .pipe(concat('ascetic-chart.min.js'))
+ .pipe(gulp.dest('public/js'));
 });
-
+gulp.task ('bmjs',function(){
+  return gulp.src(onlyProductionJS)
+    .pipe(babel())
+    .pipe(gulpIf('*.js', uglify()))
+    .on('error', function(err){
+      gutil.log(gutil.colors.ed('[Error!]'). err.toString());
+    })
+    .pipe(concat('ascetic-chart.min.js'))
+    .pipe(gulp.dest('public/js'));
+});
 gulp.task('watchbmjs', function() {
-  gulp.watch('src/ascetic-chart.js', gulp.series('buildminjs'));
+  gulp.watch('src/ascetic-chart.js', gulp.series('bmjs'));
 });
 
 gulp.task('buildJS', function() {

@@ -1,4 +1,5 @@
 import _ from 'lodash';
+
 var asceticChart =function(){
       const recFabric=function(ctx, arrData){
       const dy = parseInt(arrData.height);
@@ -28,3 +29,4 @@ var asceticChart =function(){
      }
      return {Run: Run};
  }();
+export default asceticChart;

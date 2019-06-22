@@ -26,11 +26,18 @@
     "url": "https://github.com/BlackChaose/ascetic-chart/issues"
   },
   "homepage": "https://github.com/BlackChaose/ascetic-chart#readme",
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
   "devDependencies": {
-    "@babel/register": "^7.4.4",
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
     "babel-core": "^6.26.3",
     "del": "latest",
-    "eslint": "latest",
+    "eslint": "^6.0.0",
     "gulp": "latest",
     "gulp-babel": "^8.0.0",
     "gulp-cache": "latest",
@@ -41,9 +48,12 @@
     "gulp-sass": "latest",
     "gulp-uglify-es": "latest",
     "gulp-useref": "latest",
-    "gulp-util": "latest"
+    "gulp-util": "latest",
+    "install": "^0.12.2",
+    "npm": "^6.9.0"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "lodash": "^4.17.11"
   }
 }
