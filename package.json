@@ -6,10 +6,7 @@
   "scripts": {
     "test": "test",
     "start": "http-server -c-1 -p 8081",
-    "lint": "eslint src/js",
-    "buildjs": "gulp buildJS",
-    "buildminjs": "gulp buildminjs",
-    "watchbmjs": "gulp watchbmjs"
+    "lint": "eslint src/js"
   },
   "repository": {
     "type": "git",
@@ -35,20 +32,8 @@
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
-    "babel-core": "^6.26.3",
-    "del": "latest",
+    "@babel/register": "^7.4.4",
     "eslint": "^6.0.0",
-    "gulp": "latest",
-    "gulp-babel": "^8.0.0",
-    "gulp-cache": "latest",
-    "gulp-concat": "latest",
-    "gulp-cssnano": "latest",
-    "gulp-if": "latest",
-    "gulp-imagemin": "latest",
-    "gulp-sass": "latest",
-    "gulp-uglify-es": "latest",
-    "gulp-useref": "latest",
-    "gulp-util": "latest",
     "install": "^0.12.2",
     "npm": "^6.9.0"
   },
