@@ -1,48 +1,25 @@
 {
-  "name": "blackchaose.ascetic-chart",
-  "version": "1.0.0",
-  "description": "simple chart",
+  "name": "blackchaose.ascetic-chart.js",
+  "version": "0.0.1",
+  "description": "simple charts",
   "main": "ascetic-chart.js",
   "scripts": {
-    "test": "test",
-    "start": "http-server -c-1 -p 8081",
-    "lint": "eslint src/js",
-    "babel": "./node_modules/.bin/babel src --out-dir public/js",
-    "babelm": "./node_modules/.bin/babel src | /node_modules/.bin/minify -d public/js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BlackChaose/ascetic-chart.git"
   },
   "keywords": [
-    "chart",
-    "graphic",
-    "simple"
+    "charts"
   ],
-  "author": "nikita.s.kalitin",
-  "license": "MIT",
+  "author": "nikita kalitin",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/BlackChaose/ascetic-chart/issues"
   },
   "homepage": "https://github.com/BlackChaose/ascetic-chart#readme",
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ]
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.5",
-    "@babel/generator": "^7.4.4",
-    "@babel/preset-env": "^7.4.5",
-    "@babel/register": "^7.4.4",
-    "babel-minify": "^0.5.0",
-    "eslint": "^6.0.0",
-    "install": "^0.12.2",
-    "npm": "^6.9.0"
-  },
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
     "lodash": "^4.17.11"
   }
 }
