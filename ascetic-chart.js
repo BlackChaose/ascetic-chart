@@ -24,16 +24,25 @@ import _ from 'lodash';
       
       var numCh = _.size(arrData.aD);
       
+      ctx.font = arrData['chart-font'];
+
       _.forEach(arrData.aD,function(el){
       
-         ctx.fillStyle = el.color;
+         
       
          var leftCornerX = (el.index-1)*chwdh + gap*el.index;
          var leftCornerY = imgHeight - (H*el.height/100)*ydim; //fixme
          var drawWidth = chwdh; //fixme
          var drawHeight = (H*el.height/100)*ydim; //fixme
 
+         var ntLeftCornerX = leftCornerX + xdim/2;
+         var ntLeftCornerY = leftCornerY + drawHeight/2;
+
+         ctx.fillStyle = el.color;
          ctx.fillRect(leftCornerX,leftCornerY,drawWidth,drawHeight); 
+
+         ctx.fillStyle = arrData['chart-font-color'];
+         ctx.fillText(el.height+'%', ntLeftCornerX, ntLeftCornerY);
 
          console.log(leftCornerX,leftCornerY,drawWidth,drawHeight);
          
@@ -58,10 +67,14 @@ import _ from 'lodash';
 
 
      return function(arr){
+     
       console.log("in module AsceticChart, function Run!!!");
       console.log(arr);
+     
         var obj=document.getElementById(arr.idName);
+     
         console.log(obj);
+     
         const cvs = document.createElement('canvas');
         cvs.className = "ascetic-chart";
         cvs.width = arr.width;
