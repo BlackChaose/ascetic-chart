@@ -67,7 +67,24 @@ import _ from 'lodash';
       return ctx;
     } 
 
-    const recFabricAxis = function(ctx){
+    const recFabricAxis = function(ctx, arrData){
+
+      pb = parseInt(arrData['padding-bottom']); 
+
+      const imgHeight = parseInt(arrData.height) + pt + pb;
+      const imgWidth = parseInt(arrData.width) + pr + pl;      
+
+      const xdim = parseInt(arrData['x-dim']);
+      const ydim = parseInt(arrData['y-dim']);
+
+      ctx.moveTo(0, imgHeight-pb);
+      ctx.lineTo(imgWidth, imgHeight - pb);
+      ctx.lineTo(imgWidth-xdim, imgHeight - pb + ydim/4);
+      ctx.lineTo(imgWidth-xdim, imgHeight - pb - ydim/4);       
+      ctx.lineTo(imgWidth, imgHeight - pb);
+
+      ctx.stroke();
+      
 
       //!
       return ctx;
@@ -91,6 +108,7 @@ import _ from 'lodash';
         obj.append(cvs);
         var ctx = cvs.getContext("2d");
         recFabricRec(ctx, arr);
+        recFabricAxis(ctx, arr);
      }     
    }
 export {Chart};
