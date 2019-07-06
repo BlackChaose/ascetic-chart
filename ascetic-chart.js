@@ -1,13 +1,17 @@
 import _ from 'lodash';
 
  const  Chart = function(){
-      let deltaX = 0;
-      let deltaY = 0;
-    
+      let pl = 0; //padding left
+      let pt = 0; //padding top
+      let pr = 0; //padding right
+      let pb = 0; //padding bottom
+
     const recFabricRec=function(ctx, arrData){
       
-      const imgHeight = parseInt(arrData.height);
-      const imgWidth = parseInt(arrData.width);
+      pb = parseInt(arrData['padding-bottom']); 
+
+      const imgHeight = parseInt(arrData.height) + pt + pb;
+      const imgWidth = parseInt(arrData.width) + pr + pl;
 
       const chwdh = parseInt(arrData['chart-width']);
       const chhgt = parseInt(arrData['chart-height']);
@@ -16,6 +20,7 @@ import _ from 'lodash';
 
       const xdim = parseInt(arrData['x-dim']);
       const ydim = parseInt(arrData['y-dim']);
+
 
       const H = chhgt/ydim;
       const W = chwdh/xdim;
@@ -30,8 +35,8 @@ import _ from 'lodash';
       
          
       
-         var leftCornerX = (el.index-1)*chwdh + gap*el.index;
-         var leftCornerY = imgHeight - (H*el.height/100)*ydim; //fixme
+         var leftCornerX = (el.index-1)*chwdh + gap*el.index + pl;
+         var leftCornerY = imgHeight - (H*el.height/100)*ydim - pt - pb; //fixme
          var drawWidth = chwdh; //fixme
          var drawHeight = (H*el.height/100)*ydim; //fixme
 
@@ -49,6 +54,9 @@ import _ from 'lodash';
          return;
       
       });         
+
+      ctx.fillStyle = arrData['chart-font-color'];
+      ctx.fillText(arrData['x-note'], imgWidth - imgWidth/3, imgHeight - 2 );
 
       return ctx;        
      }
@@ -77,8 +85,8 @@ import _ from 'lodash';
      
         const cvs = document.createElement('canvas');
         cvs.className = "ascetic-chart";
-        cvs.width = arr.width;
-        cvs.height = arr.height;
+        cvs.width = parseInt(arr.width) + parseInt(arr['padding-left']) + parseInt(arr['padding-right']);
+        cvs.height = parseInt(arr.height) + parseInt(arr['padding-top']) + parseInt(arr['padding-bottom']);
         cvs.style.backgroundColor=arr['background-color'];
         obj.append(cvs);
         var ctx = cvs.getContext("2d");
