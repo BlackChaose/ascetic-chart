@@ -8,6 +8,9 @@ import _ from 'lodash';
 
     const recFabricRec=function(ctx, arrData){
       
+      pt = parseInt(arrData['padding-top']); 
+      pl = parseInt(arrData['padding-left']); 
+      pr = parseInt(arrData['padding-right']); 
       pb = parseInt(arrData['padding-bottom']); 
 
       const imgHeight = parseInt(arrData.height) + pt + pb;
@@ -34,20 +37,27 @@ import _ from 'lodash';
       _.forEach(arrData.aD,function(el){
       
          
-      
+         //coord for charts
          var leftCornerX = (el.index-1)*chwdh + gap*el.index + pl;
          var leftCornerY = imgHeight - (H*el.height/100)*ydim - pt - pb; //fixme
          var drawWidth = chwdh; //fixme
          var drawHeight = (H*el.height/100)*ydim; //fixme
 
-         var ntLeftCornerX = leftCornerX + xdim/2;
+         // coord notes text on charts
+         var ntLeftCornerX = leftCornerX + xdim;
          var ntLeftCornerY = leftCornerY + drawHeight/2;
 
+         // coord notes text under X-Axis
+         var ntuLeftCornerX = leftCornerX + xdim/2;
+         var ntuLeftCornerY = imgHeight - ydim/2;
+         
          ctx.fillStyle = el.color;
          ctx.fillRect(leftCornerX,leftCornerY,drawWidth,drawHeight); 
 
          ctx.fillStyle = arrData['chart-font-color'];
          ctx.fillText(el.height+'%', ntLeftCornerX, ntLeftCornerY);
+
+         ctx.fillText(el.text, ntuLeftCornerX, ntuLeftCornerY);
 
          console.log(leftCornerX,leftCornerY,drawWidth,drawHeight);
          
@@ -56,7 +66,10 @@ import _ from 'lodash';
       });         
 
       ctx.fillStyle = arrData['chart-font-color'];
-      ctx.fillText(arrData['x-note'], imgWidth - imgWidth/3, imgHeight - 2 );
+      ctx.fillText(arrData['x-note'], imgWidth - 20, imgHeight - 2 );
+
+      ctx.fillStyle = arrData['chart-font-color'];
+      ctx.fillText(arrData['y-note'], 20, 20 );
 
       return ctx;        
      }
@@ -68,7 +81,9 @@ import _ from 'lodash';
     } 
 
     const recFabricAxis = function(ctx, arrData){
-
+      pt = parseInt(arrData['padding-top']); 
+      pl = parseInt(arrData['padding-left']); 
+      pr = parseInt(arrData['padding-right']); 
       pb = parseInt(arrData['padding-bottom']); 
 
       const imgHeight = parseInt(arrData.height) + pt + pb;
@@ -77,15 +92,22 @@ import _ from 'lodash';
       const xdim = parseInt(arrData['x-dim']);
       const ydim = parseInt(arrData['y-dim']);
 
+      // X-Axis
       ctx.moveTo(0, imgHeight-pb);
       ctx.lineTo(imgWidth, imgHeight - pb);
       ctx.lineTo(imgWidth-xdim, imgHeight - pb + ydim/4);
       ctx.lineTo(imgWidth-xdim, imgHeight - pb - ydim/4);       
       ctx.lineTo(imgWidth, imgHeight - pb);
 
+      // Y-Axis
+      ctx.moveTo(pl, imgHeight);
+      ctx.lineTo(pl, 0);
+      ctx.lineTo(pl + xdim/4, ydim);
+      ctx.lineTo(pl - xdim/4, ydim);       
+      ctx.lineTo(pl, 0);
+
       ctx.stroke();
       
-
       //!
       return ctx;
      }
