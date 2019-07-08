@@ -50,13 +50,35 @@ import _ from 'lodash';
          // coord notes text under X-Axis
          var ntuLeftCornerX = leftCornerX + xdim/2;
          var ntuLeftCornerY = imgHeight - ydim/2;
-         
+       
          ctx.fillStyle = el.color;
          ctx.fillRect(leftCornerX,leftCornerY,drawWidth,drawHeight); 
 
-         ctx.fillStyle = arrData['chart-font-color'];
-         ctx.fillText(el.height+'%', ntLeftCornerX, ntLeftCornerY);
+           if(el.hasOwnProperty('fontStyle')){
+            console.log(`! ${el.fontStyle} ${el.fontColor}`);
+              ctx.font = el.fontStyle;
+              if(el.hasOwnProperty('fontColor')){
+                ctx.fillStyle =el.fontColor;
+              }else{
+                ctx.fillStyle = el.color;
+              }
+           }else{ctx.font= arrData['chart-font'];}
+           if(el.hasOwnProperty('fontColor')){
+              ctx.fillStyle = arrData['fontColor'];
+              if(el.hasOwnProperty('fontColor')){
+                ctx.fillStyle =el.fontColor;
+              }else{
+                ctx.fillStyle = el.color;
+              }
+           }else {
+              ctx.fillStyle = arrData['chart-font-color'];
+           }
 
+
+         ctx.font = arrData['chart-font'];
+
+         ctx.fillText(el.height+'%', ntLeftCornerX, ntLeftCornerY);     
+         
          ctx.fillText(el.text, ntuLeftCornerX, ntuLeftCornerY);
 
          console.log(leftCornerX,leftCornerY,drawWidth,drawHeight);
@@ -65,18 +87,14 @@ import _ from 'lodash';
       
       });         
 
-      ctx.fillStyle = arrData['chart-font-color'];
-      ctx.fillText(arrData['x-note'], imgWidth - 20, imgHeight - 2 );
 
-      ctx.fillStyle = arrData['chart-font-color'];
-      ctx.fillText(arrData['y-note'], 20, 20 );
 
       return ctx;        
      }
 
     const recFabricGrid = function(ctx){
 
-      //!
+      //! @todo add grid-lines!!!
       return ctx;
     } 
 
@@ -108,10 +126,46 @@ import _ from 'lodash';
 
       ctx.stroke();
       
+      //Axis-Notes
+
+      ctx.fillStyle = arrData['chart-font-color'];
+      ctx.fillText(arrData['x-note'], imgWidth - 20, imgHeight - 2 );
+
+      ctx.fillStyle = arrData['chart-font-color'];
+      ctx.fillText(arrData['y-note'], 20, 20 );
       //!
       return ctx;
      }
 
+     // const recFabricCircle = function(ctx, arrData){
+     //  pt = parseInt(arrData['padding-top']); 
+     //  pl = parseInt(arrData['padding-left']); 
+     //  pr = parseInt(arrData['padding-right']); 
+     //  pb = parseInt(arrData['padding-bottom']); 
+     //  //!!! @todo add circle-chart!
+     //  const imgHeight = parseInt(arrData.height) + pt + pb;
+     //  const imgWidth = parseInt(arrData.width) + pr + pl; 
+
+      
+
+     //  return ctx;
+     // }
+
+     const recFabricError = function(ctx, arrData){
+      pt = parseInt(arrData['padding-top']); 
+      pl = parseInt(arrData['padding-left']); 
+      pr = parseInt(arrData['padding-right']); 
+      pb = parseInt(arrData['padding-bottom']); 
+
+      const imgHeight = parseInt(arrData.height) + pt + pb;
+      const imgWidth = parseInt(arrData.width) + pr + pl; 
+
+      ctx.fillStyle = 'tomato';
+      ctx.font = '36px Terminal';
+      ctx.fillText('ERROR! ;-)', pl, imgHeight/2-36 );
+
+      return ctx;
+     }
 
      return function(arr){
      
@@ -129,8 +183,14 @@ import _ from 'lodash';
         cvs.style.backgroundColor=arr['background-color'];
         obj.append(cvs);
         var ctx = cvs.getContext("2d");
+        if(arr.typeChart==='rectangles'){
         recFabricRec(ctx, arr);
         recFabricAxis(ctx, arr);
+        }else if(arr.typeChart==='circle'){
+          recFabricCircle(ctx, arr);
+        }else{
+          recFabricError(ctx, arr);
+        }
      }     
    }
 export {Chart};
