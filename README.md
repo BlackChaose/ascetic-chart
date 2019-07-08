@@ -30,16 +30,16 @@
       "typeChart": "rectangles",
       "margin": "1",
       "aD":[
-        {"index": 1, "height": 2, "color": "red", "text": "1995"},
-        {"index": 2, "height": 14, "color": "cyan", "text": "1996"},
-        {"index": 3, "height": 73, "color": "pink", "text": "1997"},
-        {"index": 4, "height": 12, "color": "gray", "text": "1998"},
-        {"index": 5, "height": 91, "color": "magenta", "text": "1999"},
-        {"index": 6, "height": 47, "color": "lightgreen", "text": "2000"},
-        {"index": 7, "height": 83, "color": "brown", "text": "2001"},
-        {"index": 8, "height": 17, "color": "lightgray", "text": "2002"},
-        {"index": 9, "height": 7, "color": "yellow", "text": "2003"},
-        {"index": 10, "height": 42, "color": "orange", "text": "2004"}
+        {"index": 1, "height": 2, "color": "red", "text": "1995", "fontSize": "24", "fontColor": "black"},
+        {"index": 2, "height": 14, "color": "cyan", "text": "1996", "fontSize": "24", "fontColor": "black"},
+        {"index": 3, "height": 73, "color": "pink", "text": "1997", "fontSize": "24", "fontColor": "black"},
+        {"index": 4, "height": 12, "color": "gray", "text": "1998", "fontSize": "24", "fontColor": "black"},
+        {"index": 5, "height": 91, "color": "magenta", "text": "1999", "fontSize": "24", "fontColor": "black"},
+        {"index": 6, "height": 47, "color": "lightgreen", "text": "2000", "fontSize": "24", "fontColor": "black"},
+        {"index": 7, "height": 83, "color": "brown", "text": "2001", "fontSize": "24", "fontColor": "black"},
+        {"index": 8, "height": 17, "color": "lightgray", "text": "2002", "fontSize": "24", "fontColor": "black"},
+        {"index": 9, "height": 7, "color": "yellow", "text": "2003", "fontSize": "24", "fontColor": "black"},
+        {"index": 10, "height": 42, "color": "orange", "text": "2004", "fontSize": "24", "fontColor": "black"}
       ]
     }
 
