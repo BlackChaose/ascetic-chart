@@ -137,19 +137,24 @@ import _ from 'lodash';
       return ctx;
      }
 
-     // const recFabricCircle = function(ctx, arrData){
-     //  pt = parseInt(arrData['padding-top']); 
-     //  pl = parseInt(arrData['padding-left']); 
-     //  pr = parseInt(arrData['padding-right']); 
-     //  pb = parseInt(arrData['padding-bottom']); 
-     //  //!!! @todo add circle-chart!
-     //  const imgHeight = parseInt(arrData.height) + pt + pb;
-     //  const imgWidth = parseInt(arrData.width) + pr + pl; 
+     const recFabricCircle = function(ctx, arrData){
+      pt = parseInt(arrData['padding-top']); 
+      pl = parseInt(arrData['padding-left']); 
+      pr = parseInt(arrData['padding-right']); 
+      pb = parseInt(arrData['padding-bottom']); 
+      //!!! @todo add circle-chart!
+      const imgHeight = parseInt(arrData.height) + pt + pb;
+      const imgWidth = parseInt(arrData.width) + pr + pl; 
 
-      
+      const xdim = parseInt(arrData['x-dim']);
+      const ydim = parseInt(arrData['y-dim']);
 
-     //  return ctx;
-     // }
+      ctx.beginPath();
+      ctx.arc(imgWidth/2, imgHeight/2, Math.min(imgWidth,imgHeight)/2 - (xdim+ydim)/2 , 0, 2 * Math.PI);
+      ctx.stroke();      
+
+      return ctx;
+     }
 
      const recFabricError = function(ctx, arrData){
       pt = parseInt(arrData['padding-top']); 
