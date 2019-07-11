@@ -148,10 +148,21 @@ import _ from 'lodash';
 
       const xdim = parseInt(arrData['x-dim']);
       const ydim = parseInt(arrData['y-dim']);
-
+	  //FIXME: not work!
+	  var gamma=0.5;
+	   
+	  ctc.fillStyle = 'red';    
+	  
+	  
       ctx.beginPath();
-      ctx.arc(imgWidth/2, imgHeight/2, Math.min(imgWidth,imgHeight)/2 - (xdim+ydim)/2 , 0, 2 * Math.PI);
-      ctx.stroke();      
+      ctx.arc(imgWidth/2, imgHeight/2, Math.min(imgWidth,imgHeight)/2 - (xdim+ydim)/2 , 0, 2 * Math.PI*gamma);
+      
+      gamma = 0.25;
+      ctc.fillStyle = 'blue';
+      ctx.arc(imgWidth/2, imgHeight/2, Math.min(imgWidth,imgHeight)/2 - (xdim+ydim)/2 , 0, 2 * Math.PI*gamma);
+      
+      //ctx.stroke();      
+      ctx.fill();
 
       return ctx;
      }
