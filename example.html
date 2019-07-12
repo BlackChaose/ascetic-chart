@@ -1,9 +1,30 @@
-# ascetic-chart
-### simple chart
-
-*** add   ```<span id="Chart-1"></span><span id="Legend-1"></span>```  to your html, choose name for id, for example 'Chart-1' & 'Legend-1' ***
-*** add script like this:
-``` <script src="js/ascetic-chart.js"></script>
+<!DOCTYPE html>
+<html lang="ruRU">
+  <head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta content="">
+<!--
+    <style type="text/css" rel="stylesheet" href="ascetic_style.css"></style>
+-->
+  </head>
+  <body>
+    <h1>test for ascetic-chart.js</h1>
+    <main>
+	<div>
+		<span id="Chart-1">
+		</span>
+		<span id="Legend-1">
+		</span>
+    </div>
+    <div>
+		<span id="Chart-2">
+		</span>
+		<span id="Legend-2">
+		</span>
+    </div>
+    </main>
+    <script src="js/ascetic-chart.js"></script>
     <script>
       var AsceticChartData = {
       "idName":"",
@@ -19,7 +40,7 @@
       "grid": "show",
       "axis-color": "gray",
       "grid-color": "light-green",
-      "background-color": "silver",
+      "background-color": "white",
       "font-size": "normal",
       "chart-font-color": "black",
       "chart-gap": "10px",
@@ -62,6 +83,18 @@
        AsceticChartData.typeChart='legend';
        aL_1(AsceticChartData);
        
-    });   ```
-
-use your settings for configure chart ***
+       var aC_1 = ascetic_.Chart();
+       AsceticChartData.width='650';
+       AsceticChartData.idName='Chart-2';
+       AsceticChartData.typeChart='rectangles';
+       aC_1(AsceticChartData);
+      
+       var aL_1 = ascetic_.Chart();
+       AsceticChartData.idName='Legend-2';
+       AsceticChartData.typeChart='legend';
+       aL_1(AsceticChartData);
+       
+    });   
+    </script>
+  </body>
+</html>
