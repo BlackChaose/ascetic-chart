@@ -33,8 +33,7 @@ import _ from 'lodash';
       const H = chhgt/ydim;
       const W = chwdh/xdim;
       
-      console.warn(arrData);
-      
+     
       var numCh = _.size(arrData.aD);
       
       ctx.font = arrData['chart-font'];
@@ -60,7 +59,6 @@ import _ from 'lodash';
          ctx.fillRect(leftCornerX,leftCornerY,drawWidth,drawHeight); 
 
            if(el.hasOwnProperty('fontStyle')){
-            console.log(`! ${el.fontStyle} ${el.fontColor}`);
               ctx.font = el.fontStyle;
               if(el.hasOwnProperty('fontColor')){
                 ctx.fillStyle =el.fontColor;
@@ -85,8 +83,6 @@ import _ from 'lodash';
          ctx.fillText(el.height+'%', ntLeftCornerX, ntLeftCornerY);     
          
          ctx.fillText(el.text, ntuLeftCornerX, ntuLeftCornerY);
-
-         console.log(leftCornerX,leftCornerY,drawWidth,drawHeight);
          
          return;
       
@@ -160,7 +156,7 @@ import _ from 'lodash';
 	/**
 	 * 
 	 *	draw one Sector of circle 
-	 * 
+	 * 	
 	 * */	
 	 const drawSector = function(ctx, color, xo, yo, radius, beginAng, endAng){
 	  
@@ -176,10 +172,64 @@ import _ from 'lodash';
       ctx.closePath();
       //ctx.stroke();
       ctx.fill();
-      console.warn(beginAng,endAng);
-      
+       
 	  return;
 	 }
+	 
+	 /**
+	  * draw text
+	  * @configMarker  {ctx, x, y, font, fontColor, perText, noteText, gap, radius, height, width 
+	  * @return void
+	  * */
+	 const drawText = function(ctx, config){
+		 ctx.fillStyle = config.fontColor;
+         ctx.font = config.fontStyle;
+         ctx.fillText(config.perText + ' ' + config.noteText, config.tx, config.ty); 
+                  
+         return;
+	 }
+	 
+	 /**
+	  * draw one marker for legend
+	  * @ctx	context		context
+	  * @config	object		settings
+	  * @flag	string		'circle' or 'rectangle' - visual part
+	  * */
+	 const drawMarker = function(ctx, config){
+		if(config.typeLegend === 'Circle'){			
+			drawSector(ctx, config.color, config.x, config.y, config.radius, 0, 360);
+			//drawSector(ctx, config.color, 10, 10, config.radius, 0, 360);
+		}else{
+			ctx.fillStyle = config.color;
+			ctx.fillRect(config.x,config.y,config.drawWidth,config.drawHeight); 
+			}
+		
+		drawText(ctx, config);			
+		
+		return ctx;
+	 }
+	 
+	 const drawLegend = function(ctx, arrConfigs){
+		console.log(ctx, arrConfigs);
+	    var numEl = _.size(arrConfigs.aD);
+		var dy = parseInt(arrConfigs.legendHeight)/(numEl+1);
+		var delta = dy;
+	    _.forEach(arrConfigs.aD,function(config){
+				config.x = parseInt(arrConfigs.legendPl);
+				config.y = delta + dy;
+				config.radius = parseInt(arrConfigs['y-dim']);
+				config.tx = config.x+parseInt(arrConfigs['x-dim'])*3;
+				config.ty = delta + dy + config.radius/2;
+				config.typeLegend = arrConfigs.typeLegend;
+								
+				dy+=delta;
+				
+				config.perText = config.height + '%';
+				config.noteText = config.text;
+
+				drawMarker(ctx, config);
+			});
+	 }	 
 	 
 	/**
 	 * draw Circle Chart
@@ -251,14 +301,17 @@ import _ from 'lodash';
       console.log("in module AsceticChart, function Run!!!");
       console.log(arr);
      
-        var obj=document.getElementById(arr.idName);
-     
-        console.log(obj);
-     
+        var obj=document.getElementById(arr.idName);   
+  
         const cvs = document.createElement('canvas');
         cvs.className = "ascetic-chart";
-        cvs.width = parseInt(arr.width) + parseInt(arr['padding-left']) + parseInt(arr['padding-right']);
-        cvs.height = parseInt(arr.height) + parseInt(arr['padding-top']) + parseInt(arr['padding-bottom']);
+        if(arr.typeChart !== 'legend'){
+			cvs.width = parseInt(arr.width) + parseInt(arr['padding-left']) + parseInt(arr['padding-right']);
+			cvs.height = parseInt(arr.height) + parseInt(arr['padding-top']) + parseInt(arr['padding-bottom']);
+		}else{
+			cvs.width = parseInt(arr.legendWidth) + parseInt(arr['padding-left']) + parseInt(arr['padding-right']);
+			cvs.height = parseInt(arr.legendHeight) + parseInt(arr['padding-top']) + parseInt(arr['padding-bottom']);
+			}
         cvs.style.backgroundColor=arr['background-color'];
         obj.append(cvs);
         var ctx = cvs.getContext("2d");
@@ -267,9 +320,11 @@ import _ from 'lodash';
         recFabricAxis(ctx, arr);
         }else if(arr.typeChart==='circle'){
           recFabricCircle(ctx, arr);
-        }else{
+        }else if(arr.typeChart==='rectangle'){
           recFabricError(ctx, arr);
-        }
+        }else if(arr.typeChart==='legend'){
+		   drawLegend(ctx, arr)
+		}
      }     
    }
 export {Chart};
