@@ -6,6 +6,11 @@ import _ from 'lodash';
       let pr = 0; //padding right
       let pb = 0; //padding bottom
 
+    
+    /**
+     * draw Rectangle charts
+     * 
+     * */
     const recFabricRec=function(ctx, arrData){
       
       pt = parseInt(arrData['padding-top']); 
@@ -92,12 +97,19 @@ import _ from 'lodash';
       return ctx;        
      }
 
+	/**
+	 * Draw grid lines
+	 * 
+	 * */
     const recFabricGrid = function(ctx){
 
       //! @todo add grid-lines!!!
       return ctx;
     } 
-
+    
+    /**
+     * draw Axis 
+     * */	
     const recFabricAxis = function(ctx, arrData){
       pt = parseInt(arrData['padding-top']); 
       pl = parseInt(arrData['padding-left']); 
@@ -136,37 +148,88 @@ import _ from 'lodash';
       //!
       return ctx;
      }
-
+	
+	 /**
+     * convert angle in degrees to angle in radian
+     * */
+	 const DegToRad = function(alpha){
+		 	// 1 deg == Math.PI/180 rad
+			return alpha * Math.PI /180;
+		}	
+		
+	/**
+	 * 
+	 *	draw one Sector of circle 
+	 * 
+	 * */	
+	 const drawSector = function(ctx, color, xo, yo, radius, beginAng, endAng){
+	  
+	  var alpha = DegToRad(beginAng);
+	  var gamma = DegToRad(endAng);
+	 	  
+	  ctx.beginPath();
+	  ctx.fillStyle = color;    
+	  ctx.moveTo(xo,yo);
+      ctx.lineTo(xo+radius*Math.cos(alpha),yo+radius*Math.sin(alpha));      
+      ctx.arc(xo, yo, radius, alpha, gamma);
+      ctx.lineTo(xo,yo);
+      ctx.closePath();
+      //ctx.stroke();
+      ctx.fill();
+      console.warn(beginAng,endAng);
+      
+	  return;
+	 }
+	 
+	/**
+	 * draw Circle Chart
+	 * 
+	 * */	
      const recFabricCircle = function(ctx, arrData){
       pt = parseInt(arrData['padding-top']); 
       pl = parseInt(arrData['padding-left']); 
       pr = parseInt(arrData['padding-right']); 
       pb = parseInt(arrData['padding-bottom']); 
-      //!!! @todo add circle-chart!
+
       const imgHeight = parseInt(arrData.height) + pt + pb;
       const imgWidth = parseInt(arrData.width) + pr + pl; 
 
       const xdim = parseInt(arrData['x-dim']);
       const ydim = parseInt(arrData['y-dim']);
-	  //FIXME: not work!
-	  var gamma=0.5;
-	   
-	  ctc.fillStyle = 'red';    
 	  
-	  
-      ctx.beginPath();
-      ctx.arc(imgWidth/2, imgHeight/2, Math.min(imgWidth,imgHeight)/2 - (xdim+ydim)/2 , 0, 2 * Math.PI*gamma);
-      
-      gamma = 0.25;
-      ctc.fillStyle = 'blue';
-      ctx.arc(imgWidth/2, imgHeight/2, Math.min(imgWidth,imgHeight)/2 - (xdim+ydim)/2 , 0, 2 * Math.PI*gamma);
-      
-      //ctx.stroke();      
-      ctx.fill();
+	  var gamma=45;
+	  var xo = imgWidth/2;
+	  var yo = imgHeight/2;
+	  var radius =  Math.min(imgWidth,imgHeight)/2 - (xdim+ydim)/2;
 
+	  var sum = _.reduce(arrData.aD, function(acc,item){
+		  return acc+=item.height;
+		  },0);
+
+	  var sectors = _.map(arrData.aD,function(el){
+			var res = {};
+			res.index = el.index;
+			res.beginAng = 0 ;
+			res.endAng =(el.height/sum)*360;
+			res.color = el.color;
+			res.text = el.text;
+			res.fontStyle = el.fontStyle;
+			res.fontColor = el.fontColor;
+			return res;
+		  });
+
+      var deltaAng = 0;
+      _.forEach(sectors,function(el){
+		  drawSector(ctx,el.color,xo,yo,radius,el.beginAng+deltaAng,el.endAng+deltaAng);
+		  deltaAng +=el.endAng;
+		  });
       return ctx;
      }
 
+	 /**
+	  * Handle & outpute errors
+	  * 
+	  * */
      const recFabricError = function(ctx, arrData){
       pt = parseInt(arrData['padding-top']); 
       pl = parseInt(arrData['padding-left']); 
