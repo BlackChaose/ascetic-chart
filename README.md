@@ -1,14 +1,14 @@
 # ascetic-chart
 ### simple chart
 
-*** add   ```<div id="App"></div>```  to your html, choose name for id, for example 'App'***
+*** add   ```<span id="Chart-1"></span><span id="Legend-1"></span>```  to your html, choose name for id, for example 'Chart-1' & 'Legend-1' ***
 *** add script like this:
 ``` <script src="js/ascetic-chart.js"></script>
     <script>
       var AsceticChartData = {
-      "idName":"App",
+      "idName":"",
       "mode":"handle",
-      "width": "620", //px
+      "width": "320", //px
       "height": "250", //px
       "x-note": "гг",
       "y-note": "%",
@@ -27,28 +27,41 @@
       "padding-top": 0, //px
       "padding-right": 0, //px
       "padding-bottom": 20, //px
-      "typeChart": "rectangles",
+      "typeChart": "",
+      "typeLegend": "Circle",
+      "legendPl": "20px",
+      "legendWidth": "120",
+      "legendHeight": "250",
+      "chart-font": "16px Arial",
       "margin": "1",
-      "aD":[
-        {"index": 1, "height": 2, "color": "red", "text": "1995", "fontSize": "24", "fontColor": "black"},
-        {"index": 2, "height": 14, "color": "cyan", "text": "1996", "fontSize": "24", "fontColor": "black"},
-        {"index": 3, "height": 73, "color": "pink", "text": "1997", "fontSize": "24", "fontColor": "black"},
-        {"index": 4, "height": 12, "color": "gray", "text": "1998", "fontSize": "24", "fontColor": "black"},
-        {"index": 5, "height": 91, "color": "magenta", "text": "1999", "fontSize": "24", "fontColor": "black"},
-        {"index": 6, "height": 47, "color": "lightgreen", "text": "2000", "fontSize": "24", "fontColor": "black"},
-        {"index": 7, "height": 83, "color": "brown", "text": "2001", "fontSize": "24", "fontColor": "black"},
-        {"index": 8, "height": 17, "color": "lightgray", "text": "2002", "fontSize": "24", "fontColor": "black"},
-        {"index": 9, "height": 7, "color": "yellow", "text": "2003", "fontSize": "24", "fontColor": "black"},
-        {"index": 10, "height": 42, "color": "orange", "text": "2004", "fontSize": "24", "fontColor": "black"}
+      "aD":[/** fixme: height to size*/
+        {"index": 1, "height": 2, "color": "red", "text": "1995", "fontStyle": "14 Arial", "fontColor": "black"},
+        {"index": 2, "height": 14, "color": "cyan", "text": "1996", "fontStyle": "14 Courier", "fontColor": "black"},
+        {"index": 3, "height": 73, "color": "pink", "text": "1997", "fontStyle": "14 Tahoma", "fontColor": "black"},
+        {"index": 4, "height": 12, "color": "gray", "text": "1998", "fontStyle": "14 Terminal", "fontColor": "black"},
+        {"index": 5, "height": 91, "color": "magenta", "text": "1999", "fontStyle": "14 Times New Roman", "fontColor": "black"},
+        {"index": 6, "height": 47, "color": "lightgreen", "text": "2000", "fontStyle": "14 Monospace Coursiva", "fontColor": "black"},
+        {"index": 7, "height": 83, "color": "brown", "text": "2001", "fontStyle": "14 Symbol", "fontColor": "black"},
+        {"index": 8, "height": 17, "color": "lightgray", "text": "2002", "fontStyle": "14 Arial", "fontColor": "black"},
+        {"index": 9, "height": 7, "color": "yellow", "text": "2003", "fontStyle": "14 Arial Black", "fontColor": "black"},
+        {"index": 10, "height": 42, "color": "orange", "text": "2004", "fontStyle": "14 Courier", "fontColor": "black"}
       ]
     }
 
     document.addEventListener("DOMContentLoaded", function() {
       console.log("!!!");
       console.warn(AsceticChartData);
-       var aC = ascetic_.Chart();
-       aC(AsceticChartData);
-    });   
-    </script> ```
+      
+       var aC_1 = ascetic_.Chart();
+       AsceticChartData.idName='Chart-1';
+       AsceticChartData.typeChart='circle';
+       aC_1(AsceticChartData);
+      
+       var aL_1 = ascetic_.Chart();
+       AsceticChartData.idName='Legend-1';
+       AsceticChartData.typeChart='legend';
+       aL_1(AsceticChartData);
+       
+    });   ```
 
 use your settings for configure chart ***
