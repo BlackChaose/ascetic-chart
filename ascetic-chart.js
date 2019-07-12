@@ -320,11 +320,11 @@ import _ from 'lodash';
         recFabricAxis(ctx, arr);
         }else if(arr.typeChart==='circle'){
           recFabricCircle(ctx, arr);
-        }else if(arr.typeChart==='rectangle'){
-          recFabricError(ctx, arr);
         }else if(arr.typeChart==='legend'){
 		   drawLegend(ctx, arr)
-		}
-     }     
+		}else {
+          recFabricError(ctx, arr);
+          }     
    }
+}
 export {Chart};
