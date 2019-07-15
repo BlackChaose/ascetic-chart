@@ -229,12 +229,30 @@ import _ from 'lodash';
 				config.tx = config.x+parseInt(arrConfigs['x-dim'])*3;
 				config.ty = delta + dy + config.radius/2;
 				config.typeLegend = arrConfigs.typeLegend;
-								
+				config.fontStyle = arrConfigs['fontLegendStyle'];
 				dy+=delta;
 				
 				drawMarker(ctx, config);
 			});
 	 }	 
+	 
+	 /**
+	  * get text by secors params
+	  *
+	  *  */
+	 const getTextSecParams = function(tW, radius, beginAng, endAng, xo, yo){
+		  var bA = DegToRad(beginAng);
+		  var eA = DegToRad(endAng);
+		  var rK = 0.65;
+		  var psi = Math.PI - bA + (eA-bA)/2;
+		  //var ksi = Math.PI - bA + (eA-bA)*0.6;
+		  
+		  var res1={"txtX": xo - (radius*rK)*Math.cos(psi), "txtY": yo + (radius*rK)*(Math.sin(psi))};
+		  //var res2={"txtX": xo + (radius*0.5)*Math.cos(ksi), "txtY": yo + (radius*0.5)*(Math.sin(ksi))};
+		 
+		  //return (Math.abs(res1.txtX - res2.txtX)>=tW)? res1 : null;		
+		  return res1;
+		 }
 	 
 	/**
 	 * draw Circle Chart
@@ -267,17 +285,33 @@ import _ from 'lodash';
 			res.beginAng = 0 ;
 			res.endAng =(el.height/sum)*360;
 			res.color = el.color;
-			res.text = el.text;
+			res.textNote = el.textNote;
 			res.fontStyle = el.fontStyle;
 			res.fontColor = el.fontColor;
 			return res;
 		  });
 
       var deltaAng = 0;
+
       _.forEach(sectors,function(el){
 		  drawSector(ctx,el.color,xo,yo,radius,el.beginAng+deltaAng,el.endAng+deltaAng);
 		  deltaAng +=el.endAng;
-		  });
+		  
+		var tN = ctx.measureText(el.textNote);
+		var tParams = getTextSecParams(tN.width, radius, el.beginAng + deltaAng, el.endAng + deltaAng, xo, yo);
+	
+		if((arrData['showNotes']=== true)&&(tParams!== null)){
+				var ntLeftCornerX = tParams.txtX;
+				var ntLeftCornerY = tParams.txtY;
+
+				ctx.font = el.fontStyle || arrData['chart-font'];
+				ctx.fillStyle = el.fontColor || arrData['chart-font-color'];
+				console.warn(ctx.font, ctx.fillStyle);				
+				ctx.textAlign="center"; 
+				//~ ctx.fillText('*', ntLeftCornerX, ntLeftCornerY);     
+				ctx.fillText(el.textNote, ntLeftCornerX, ntLeftCornerY);    
+			}
+		  });   
       return ctx;
      }
 
