@@ -191,7 +191,7 @@ import _ from 'lodash';
 	  * @return void
 	  * */
 	 const drawText = function(ctx, config){
-		 ctx.fillStyle = config.fontColor;
+		 ctx.fillStyle = config.fontLegendColor;
          ctx.font = config.fontStyle;
          ctx.fillText(config.textLegend, config.tx, config.ty); 
                   
@@ -229,7 +229,7 @@ import _ from 'lodash';
 				config.tx = config.x+parseInt(arrConfigs['x-dim'])*3;
 				config.ty = delta + dy + config.radius/2;
 				config.typeLegend = arrConfigs.typeLegend;
-				config.fontStyle = arrConfigs['fontLegendStyle'];
+				config.fontStyle = arrConfigs['fontLegendStyle'];								
 				dy+=delta;
 				drawMarker(ctx, config);
 			});
@@ -281,7 +281,7 @@ import _ from 'lodash';
 			res.color = el.color;
 			res.textNote = el.textNote;
 			res.fontStyle = el.fontStyle;
-			res.fontColor = el.fontColor;
+			res.fontNoteColor = el.fontNoteColor;
 			return res;
 		  });
 
@@ -299,7 +299,7 @@ import _ from 'lodash';
 				var ntLeftCornerY = tParams.txtY;
 
 				ctx.font = el.fontStyle || arrData['chart-font'];
-				ctx.fillStyle = el.fontColor || arrData['chart-font-color'];
+				ctx.fillStyle = el.fontNoteColor || arrData['chart-font-color'];
 				console.warn(ctx.font, ctx.fillStyle);				
 				ctx.textAlign="center"; 
 				ctx.fillText(el.textNote, ntLeftCornerX, ntLeftCornerY);    
