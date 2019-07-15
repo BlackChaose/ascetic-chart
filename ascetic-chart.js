@@ -41,20 +41,12 @@ import _ from 'lodash';
       _.forEach(arrData.aD,function(el){
       
          
-         //coord for charts
+         //coord for charts (!)
          var leftCornerX = (el.index-1)*chwdh + gap*el.index + pl;
          var leftCornerY = imgHeight - (H*el.height/100)*ydim - pt - pb; //fixme
          var drawWidth = chwdh; //fixme
          var drawHeight = (H*el.height/100)*ydim; //fixme
-
-         // coord notes text on charts
-         var ntLeftCornerX = leftCornerX + xdim;
-         var ntLeftCornerY = leftCornerY + drawHeight/2;
-
-         // coord notes text under X-Axis
-         var ntuLeftCornerX = leftCornerX + xdim/2;
-         var ntuLeftCornerY = imgHeight - ydim/2;
-       
+ 
          ctx.fillStyle = el.color;
          ctx.fillRect(leftCornerX,leftCornerY,drawWidth,drawHeight); 
 
@@ -66,6 +58,7 @@ import _ from 'lodash';
                 ctx.fillStyle = el.color;
               }
            }else{ctx.font= arrData['chart-font'];}
+           
            if(el.hasOwnProperty('fontColor')){
               ctx.fillStyle = arrData['fontColor'];
               if(el.hasOwnProperty('fontColor')){
@@ -77,13 +70,29 @@ import _ from 'lodash';
               ctx.fillStyle = arrData['chart-font-color'];
            }
 
+     // coord notes text on charts
+	 var textNote = ctx.measureText(el.textNote);
+	 
+	 if((arrData['showNotes']=== true)&&(textNote.width <= drawWidth)){
+		var ntLeftCornerX = leftCornerX + (drawWidth-textNote.width)/2;
+		var ntLeftCornerY = leftCornerY + drawHeight/2;
+		
+		ctx.font = arrData['chart-font'];
+		ctx.fillText(el.textNote, ntLeftCornerX, ntLeftCornerY);     
+      }
+     
+	
 
-         ctx.font = arrData['chart-font'];
 
-         ctx.fillText(el.height+'%', ntLeftCornerX, ntLeftCornerY);     
-         
-         ctx.fillText(el.text, ntuLeftCornerX, ntuLeftCornerY);
-         
+
+       // coord notes text under X-Axis
+     var ntuLeftCornerX = leftCornerX + xdim/2;
+     var ntuLeftCornerY = imgHeight - ydim/2;
+     var textNoteUnderAxis = ctx.measureText(el.textNoteUnderAxis);    
+     
+     if((arrData['showNotesUnderAxis']=== true)&&(textNoteUnderAxis.width <= drawWidth)){
+			ctx.fillText(el.textNoteUnderAxis, ntuLeftCornerX, ntuLeftCornerY);
+		}
          return;
       
       });         
@@ -184,7 +193,7 @@ import _ from 'lodash';
 	 const drawText = function(ctx, config){
 		 ctx.fillStyle = config.fontColor;
          ctx.font = config.fontStyle;
-         ctx.fillText(config.perText + ' ' + config.noteText, config.tx, config.ty); 
+         ctx.fillText(config.textLegend, config.tx, config.ty); 
                   
          return;
 	 }
@@ -210,7 +219,6 @@ import _ from 'lodash';
 	 }
 	 
 	 const drawLegend = function(ctx, arrConfigs){
-		console.log(ctx, arrConfigs);
 	    var numEl = _.size(arrConfigs.aD);
 		var dy = parseInt(arrConfigs.legendHeight)/(numEl+1);
 		var delta = dy;
@@ -224,9 +232,6 @@ import _ from 'lodash';
 								
 				dy+=delta;
 				
-				config.perText = config.height + '%';
-				config.noteText = config.text;
-
 				drawMarker(ctx, config);
 			});
 	 }	 
@@ -297,10 +302,7 @@ import _ from 'lodash';
      }
 
      return function(arr){
-     
-      console.log("in module AsceticChart, function Run!!!");
-      console.log(arr);
-     
+    
         var obj=document.getElementById(arr.idName);   
   
         const cvs = document.createElement('canvas');
@@ -316,8 +318,10 @@ import _ from 'lodash';
         obj.append(cvs);
         var ctx = cvs.getContext("2d");
         if(arr.typeChart==='rectangles'){
-        recFabricRec(ctx, arr);
-        recFabricAxis(ctx, arr);
+			recFabricRec(ctx, arr);
+        if(arr['showAxis']){
+			recFabricAxis(ctx, arr);
+		}
         }else if(arr.typeChart==='circle'){
           recFabricCircle(ctx, arr);
         }else if(arr.typeChart==='legend'){
