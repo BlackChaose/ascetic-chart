@@ -60,16 +60,16 @@
       "chart-font": "16px Arial",
       "margin": "1",
       "aD":[/** fixme: height to size*/
-        {"index": 1, "height": 100, "color": "red", "textNote": "100%","textNoteUnderAxis": "1995", "textLegend":"Аngola","fontStyle": "18px Arial", "fontColor": "black"},
-        {"index": 2, "height": 14, "color": "cyan", "textNote":"14%","textNoteUnderAxis": "1996", "textLegend":"Аndorra", "fontStyle": "8px Courier", "fontColor": "black"},
-        {"index": 3, "height": 73, "color": "pink", "textNote":"73%","textNoteUnderAxis": "1997", "textLegend":"Vatikan", "fontStyle": "16px Tahoma", "fontColor": "black"},
-        {"index": 4, "height": 12, "color": "gray", "textNote":"12%","textNoteUnderAxis": "1998", "textLegend":"Monako", "fontStyle": "8px Terminal", "fontColor": "black"},
-        {"index": 5, "height": 91, "color": "magenta","textNote":"91%", "textNoteUnderAxis": "1999", "textLegend":"Russian Federation", "fontStyle": "16px Times New Roman", "fontColor": "black"},
-        {"index": 6, "height": 47, "color": "lightgreen","textNote":"47%", "textNoteUnderAxis": "2000", "textLegend":"UK", "fontStyle": "16px Monospace Coursiva", "fontColor": "black"},
-        {"index": 7, "height": 83, "color": "brown", "textNote":"83%", "textNoteUnderAxis": "2001", "textLegend":"USA", "fontStyle": "16px Symbol", "fontColor": "black"},
-        {"index": 8, "height": 17, "color": "lightgray", "textNote":"17%", "textNoteUnderAxis": "2002", "textLegend":"Ireland", "fontStyle": "8px Arial", "fontColor": "black"},
-        {"index": 9, "height": 7, "color": "yellow", "textNote":"7%", "textNoteUnderAxis": "2003", "textLegend":"Urugvay", "fontStyle": "8px Arial Black", "fontColor": "black"},
-        {"index": 10, "height": 42, "color": "orange", "textNote":"42%", "textNoteUnderAxis": "2004", "textLegend":"China", "fontStyle": "16px Courier", "fontColor": "black"}
+        {"index": 1, "height": 100, "color": "red", "textNote": "100%","textNoteUnderAxis": "1995","fontLegendColor": "green", "textLegend":"Аngola","fontStyle": "18px Arial", "fontNoteColor": "indigo"},
+        {"index": 2, "height": 14, "color": "cyan", "textNote":"14%","textNoteUnderAxis": "1996","fontLegendColor": "green", "textLegend":"Аndorra", "fontStyle": "8px Courier", "fontNoteColor": "indigo"},
+        {"index": 3, "height": 73, "color": "pink", "textNote":"73%","textNoteUnderAxis": "1997","fontLegendColor": "green", "textLegend":"Vatikan", "fontStyle": "16px Tahoma", "fontNoteColor": "indigo"},
+        {"index": 4, "height": 12, "color": "gray", "textNote":"12%","textNoteUnderAxis": "1998","fontLegendColor": "green", "textLegend":"Monako", "fontStyle": "8px Terminal", "fontNoteColor": "indigo"},
+        {"index": 5, "height": 91, "color": "magenta","textNote":"91%", "textNoteUnderAxis": "1999","fontLegendColor": "green", "textLegend":"Russian Federation", "fontStyle": "16px Times New Roman", "fontNoteColor": "indigo"},
+        {"index": 6, "height": 47, "color": "lightgreen","textNote":"47%", "textNoteUnderAxis": "2000","fontLegendColor": "green", "textLegend":"UK", "fontStyle": "16px Monospace Coursiva", "fontNoteColor": "indigo"},
+        {"index": 7, "height": 83, "color": "brown", "textNote":"83%", "textNoteUnderAxis": "2001","fontLegendColor": "green", "textLegend":"USA", "fontStyle": "16px Symbol", "fontNoteColor": "indigo"},
+        {"index": 8, "height": 17, "color": "lightgray", "textNote":"17%", "textNoteUnderAxis": "2002","fontLegendColor": "green", "textLegend":"Ireland", "fontStyle": "8px Arial", "fontNoteColor": "indigo"},
+        {"index": 9, "height": 7, "color": "yellow", "textNote":"7%", "textNoteUnderAxis": "2003","fontLegendColor": "green", "textLegend":"Urugvay", "fontStyle": "8px Arial Black", "fontNoteColor": "indigo"},
+        {"index": 10, "height": 42, "color": "orange", "textNote":"42%", "textNoteUnderAxis": "2004","fontLegendColor": "green", "textLegend":"China", "fontStyle": "16px Courier", "fontNoteColor": "indigo"}
       ]
     }
 
