@@ -231,7 +231,6 @@ import _ from 'lodash';
 				config.typeLegend = arrConfigs.typeLegend;
 				config.fontStyle = arrConfigs['fontLegendStyle'];
 				dy+=delta;
-				
 				drawMarker(ctx, config);
 			});
 	 }	 
@@ -244,13 +243,8 @@ import _ from 'lodash';
 		  var bA = DegToRad(beginAng);
 		  var eA = DegToRad(endAng);
 		  var rK = 0.65;
-		  var psi = Math.PI - bA + (eA-bA)/2;
-		  //var ksi = Math.PI - bA + (eA-bA)*0.6;
-		  
-		  var res1={"txtX": xo - (radius*rK)*Math.cos(psi), "txtY": yo + (radius*rK)*(Math.sin(psi))};
-		  //var res2={"txtX": xo + (radius*0.5)*Math.cos(ksi), "txtY": yo + (radius*0.5)*(Math.sin(ksi))};
-		 
-		  //return (Math.abs(res1.txtX - res2.txtX)>=tW)? res1 : null;		
+		  var psi = Math.PI - bA + (eA-bA)/2; 
+		  var res1={"txtX": xo - (radius*rK)*Math.cos(psi), "txtY": yo + (radius*rK)*(Math.sin(psi))};	
 		  return res1;
 		 }
 	 
@@ -308,7 +302,6 @@ import _ from 'lodash';
 				ctx.fillStyle = el.fontColor || arrData['chart-font-color'];
 				console.warn(ctx.font, ctx.fillStyle);				
 				ctx.textAlign="center"; 
-				//~ ctx.fillText('*', ntLeftCornerX, ntLeftCornerY);     
 				ctx.fillText(el.textNote, ntLeftCornerX, ntLeftCornerY);    
 			}
 		  });   
