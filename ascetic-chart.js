@@ -102,6 +102,113 @@ import _ from 'lodash';
       return ctx;        
      }
 
+
+
+
+
+	/**
+	 * 
+	 *	DRAW DoubleRectangles Chart 
+	 *
+	 *  */
+	const drawDifRecs=function(ctx, arrData){
+	  console.log(arrData);
+	  pt = parseInt(arrData['padding-top']); 
+      pl = parseInt(arrData['padding-left']); 
+      pr = parseInt(arrData['padding-right']); 
+      pb = parseInt(arrData['padding-bottom']); 
+
+      const imgHeight = parseInt(arrData.height) + pt + pb;
+      const imgWidth = parseInt(arrData.width) + pr + pl;
+
+      const chwdh = parseInt(arrData['chart-width']);
+      const chhgt = parseInt(arrData['chart-height']);
+
+      const gap = parseInt(arrData['chart-gap']);
+
+      const xdim = parseInt(arrData['x-dim']);
+      const ydim = parseInt(arrData['y-dim']);
+
+
+      const H = chhgt/ydim;
+      const W = chwdh/xdim;
+      
+     
+      var numCh = _.size(arrData.aD);
+      
+      ctx.font = arrData['chart-font'];
+	  var cnt = 1;
+      _.forEach(arrData.aD,function(el){
+      
+         
+      //coord for charts (!)
+		if(cnt%2==0){
+         var leftCornerX = (el.index-1)*chwdh + gap*el.index + pl - gap;
+         var leftCornerY = imgHeight - (H*el.height/100)*ydim - pt - pb; //fixme
+         var drawWidth = chwdh; //fixme
+         var drawHeight = (H*el.height/100)*ydim; //fixme
+         ctx.fillStyle = arrData.difRecsColors.color1;
+		} else{
+		 var leftCornerX = (el.index-1)*chwdh + gap*el.index + pl;
+         var leftCornerY = imgHeight - (H*el.height/100)*ydim - pt - pb; //fixme
+         var drawWidth = chwdh; //fixme
+         var drawHeight = (H*el.height/100)*ydim; //fixme
+         ctx.fillStyle = arrData.difRecsColors.color2;
+			}
+         
+
+         ctx.fillRect(leftCornerX,leftCornerY,drawWidth,drawHeight); 
+
+           if(el.hasOwnProperty('fontStyle')){
+              ctx.font = el.fontStyle;
+              if(el.hasOwnProperty('fontColor')){
+                ctx.fillStyle =el.fontColor;
+              }else{
+                ctx.fillStyle = el.color;
+              }
+           }else{ctx.font= arrData['chart-font'];}
+           
+           if(el.hasOwnProperty('fontColor')){
+              ctx.fillStyle = arrData['fontColor'];
+              if(el.hasOwnProperty('fontColor')){
+                ctx.fillStyle =el.fontColor;
+              }else{
+                ctx.fillStyle = el.color;
+              }
+           }else {
+              ctx.fillStyle = arrData['chart-font-color'];
+           }
+
+     // coord notes text on charts
+	 var textNote = ctx.measureText(el.textNote);
+	 
+	 if((arrData['showNotes']=== true)&&(textNote.width <= drawWidth)){
+		var ntLeftCornerX = leftCornerX + (drawWidth-textNote.width)/2;
+		var ntLeftCornerY = leftCornerY + drawHeight/2;
+		
+		ctx.font = arrData['chart-font'];
+		ctx.fillText(el.textNote, ntLeftCornerX, ntLeftCornerY);     
+      }
+     
+	
+       // coord notes text under X-Axis
+     var ntuLeftCornerX = leftCornerX + xdim/2;
+     var ntuLeftCornerY = imgHeight - ydim/2;
+     var textNoteUnderAxis = ctx.measureText(el.textNoteUnderAxis);    
+     
+     if((arrData['showNotesUnderAxis']=== true)&&(textNoteUnderAxis.width <= drawWidth)){
+			ctx.fillText(el.textNoteUnderAxis, ntuLeftCornerX, ntuLeftCornerY);
+		}
+		
+	
+        cnt+=1;
+      
+      });         
+
+     return ctx;        
+     }
+
+
 	/**
 	 * Draw grid lines
 	 * 
@@ -147,7 +254,6 @@ import _ from 'lodash';
 
       ctx.fillStyle = arrData['chart-font-color'];
       ctx.fillText(arrData['x-note'], imgWidth - 20, imgHeight - 2 );
-
       ctx.fillStyle = arrData['chart-font-color'];
       ctx.fillText(arrData['y-note'], 20, 20 );
       //!
@@ -300,7 +406,7 @@ import _ from 'lodash';
 
 				ctx.font = el.fontStyle || arrData['chart-font'];
 				ctx.fillStyle = el.fontNoteColor || arrData['chart-font-color'];
-				console.warn(ctx.font, ctx.fillStyle);				
+				//console.warn(ctx.font, ctx.fillStyle);				
 				ctx.textAlign="center"; 
 				ctx.fillText(el.textNote, ntLeftCornerX, ntLeftCornerY);    
 			}
@@ -353,7 +459,9 @@ import _ from 'lodash';
           recFabricCircle(ctx, arr);
         }else if(arr.typeChart==='legend'){
 		   drawLegend(ctx, arr)
-		}else {
+		}else if(arr.typeChart === 'difRecs'){
+			drawDifRecs(ctx, arr);
+			}else {
           recFabricError(ctx, arr);
           }     
    }
