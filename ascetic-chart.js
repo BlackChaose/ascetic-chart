@@ -439,7 +439,7 @@ import _ from 'lodash';
         var obj=document.getElementById(arr.idName);   
   
         const cvs = document.createElement('canvas');
-        cvs.className = "ascetic-chart";
+        cvs.className = arr.className;
         if(arr.typeChart !== 'legend'){
 			cvs.width = parseInt(arr.width) + parseInt(arr['padding-left']) + parseInt(arr['padding-right']);
 			cvs.height = parseInt(arr.height) + parseInt(arr['padding-top']) + parseInt(arr['padding-bottom']);
